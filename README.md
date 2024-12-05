@@ -20,12 +20,12 @@ The **Movie App** is a React application built using TypeScript and Material-UI 
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/movie-app.git
+   git clone https://github.com/gideon877/movie-list-app.git
    ```
 
 2. Navigate to the project directory:
    ```bash
-   cd movie-app
+   cd movie-list-app
    ```
 
 3. Install dependencies:
@@ -51,7 +51,7 @@ The **Movie App** is a React application built using TypeScript and Material-UI 
 ## Project Structure
 
 ```
-movie-app/
+movie-list-app/
 │
 ├── src/
 │   ├── components/          # Reusable UI components
