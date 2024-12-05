@@ -9,6 +9,7 @@ import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
 import NotFound from './components/NotFound';
 import { useAuthStore } from './store/useAuthStore';
+import Home from './components/Home';
 
 const App = () => {
 	const { userId, authenticated } = useAuthStore();

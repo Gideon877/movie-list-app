@@ -5,6 +5,7 @@ import { useAuthStore } from '../../store/useAuthStore';
 import { LoginStateProps } from '../../utils/interfaces';
 import { create } from 'zustand';
 import { loginApi } from '../../api/authApi';
+import { useAppStore } from '../../store/useAppStore';
 
 
 const useLoginStore = create<LoginStateProps>((set) => ({
@@ -23,6 +24,8 @@ const Login: React.FC = () => {
         setError,
     } = useAuthStore();
 
+    const {setActiveView } = useAppStore()
+
     const { username, password, setPassword, setUsername } = useLoginStore();
 
     const handleLogin = async () => {
@@ -36,7 +39,7 @@ const Login: React.FC = () => {
                 console.log(response)
                 const {userId, token} = response;
                 login(userId, token);
-                // setAuthenticated(true);
+                setActiveView('Home');
                 // setUsername(username);
                 // setLoading(false);
             })
