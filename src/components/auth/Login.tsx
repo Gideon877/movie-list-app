@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Box, Typography, TextField, Button, CircularProgress, Alert, ButtonGroup, Grid2, Link } from '@mui/material';
+import { Container, Box, Typography, TextField, Button, CircularProgress, Alert, ButtonGroup, Grid2, Link, Toolbar } from '@mui/material';
 import { LoginOutlined } from '@mui/icons-material';
 import { useAuthStore } from '../../store/useAuthStore';
 import { loginApi } from '../../api/authApi';
@@ -107,6 +107,27 @@ const Login: React.FC = () => {
                     </Link>
                 </Grid2>
             </Box>
+
+            <Box>
+                <Typography variant="body2" align="center" gutterBottom>
+                    &copy; {new Date().getFullYear()} My Movie App
+                </Typography>
+            </Box>
+
+            <hr />
+
+            <Toolbar />
+
+            {
+                JSON.stringify(
+                    {
+                        message: 'Use this following login details to test the app',
+                        username: 'test',
+                        password: 'test'
+                    }
+                )
+            }
+
         </Container>
     );
 };

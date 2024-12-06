@@ -19,6 +19,7 @@ export const useAuthStore = create<AuthContextType>()(
                     authenticated: false,
                     token: null,
                 });
+                localStorage.clear();
             },
             login: (id: string, token: string) => {
                 set({

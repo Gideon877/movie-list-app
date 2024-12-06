@@ -4,6 +4,7 @@ import { ExitToApp } from '@mui/icons-material';
 import { useSignUpStore } from '../../store/useAppStore';
 import { signupApi } from '../../api/authApi';
 import CustomSnackbar from '../CustomSnackbar';
+import { useAuthStore } from '../../store/useAuthStore';
 
 
 const SignUp: React.FC = () => {
@@ -16,8 +17,8 @@ const SignUp: React.FC = () => {
         setError,
         setType,
         setOpen,
-        open, 
-        type, 
+        open,
+        type,
         loading,
         error,
         firstName,
@@ -25,6 +26,7 @@ const SignUp: React.FC = () => {
         username,
         password
     } = useSignUpStore();
+    const { logout } = useAuthStore();
     const showSnackbar = (message: string, type: 'success' | 'error' | 'info') => {
         console.log('showSnackbar called with message:', message, 'and type:', type);
 
@@ -48,6 +50,8 @@ const SignUp: React.FC = () => {
                         showSnackbar('Sign-up successful!', 'success');
                         setFirstName('');
                         setPassword(''); setUsername(''); setLastName('');
+                        logout();
+
                     }).catch((error) => {
                         console.log(error);
                         showSnackbar('An error occurred while signing up. Please try again.', 'error');
@@ -55,7 +59,7 @@ const SignUp: React.FC = () => {
                         setLoading(false);
                     })
 
-                alert('Sign-up successful!');
+                // alert('Sign-up successful!');
             } else {
                 setLoading(false);
                 showSnackbar('All fields are required.', 'error');

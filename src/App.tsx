@@ -18,7 +18,7 @@ const App: React.FC = () => {
     useEffect(() => {
         if (!verifyToken()) {
             logout();
-            alert('Session expired. Please log in again.');
+            // alert('Session expired. Please log in again.');
         }
     }, [logout, verifyToken]);
 
