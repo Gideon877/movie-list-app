@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { AppBar, Badge, Box, CssBaseline, Divider, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Badge, Box, CssBaseline, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
 import { Subscriptions, Menu as MenuIcon, Home as HomeIcon, Person, ExitToApp as ExitToAppIcon } from '@mui/icons-material';
 import { useAuthStore } from '../store/useAuthStore';
 import Pages from '../Pages';

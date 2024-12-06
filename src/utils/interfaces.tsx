@@ -7,6 +7,7 @@ export interface Movie {
     poster_path: string | null;
     release_date: string | null;
     vote_average: number | null;
+    createdAt: string | null;
 
 }
 
@@ -18,6 +19,7 @@ export interface FavoriteMovieState {
     poster_path: string | null;
     release_date: string | null;
     vote_average: number | null;
+    createdAt: string | null;
 
 }
 
@@ -87,6 +89,7 @@ export interface AuthContextType {
     setLoading: (loading: boolean) => void;
     logout: () => void;
     login: (id: string, token: string) => void;
+    verifyToken: () => boolean;
 }
 
 export interface AuthProviderProps {

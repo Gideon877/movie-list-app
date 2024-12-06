@@ -38,7 +38,7 @@ const MovieModal: React.FC<MovieModalProps> = ({ open, movie, onClose }) => {
                         {movie.vote_average !== undefined && (
                             <>
                                 <Typography variant="body2">Rating: {movie.vote_average}</Typography>
-                                <Rating name="read-only" value={movie.vote_average / 10 * 5} readOnly />
+                                {movie.vote_average && <Rating name="read-only" value={movie.vote_average / 10 * 5} readOnly />}
                             </>
                         )}
                     </Box>

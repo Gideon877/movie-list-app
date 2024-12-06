@@ -15,7 +15,7 @@ interface FavoriteMoviesStore {
 	setFavoriteMovies: (movies: FavoriteMovieState[]) => void;
 	setSelectedMovie: (movies: FavoriteMovieState | null) => void;
 	setModalOpen: (modalOpen: boolean) => void;
-	removeFavoriteMovie: (movieId: string) => void;
+	removeFavoriteMovie: (movieId: number) => void;
 
 }
 
@@ -72,7 +72,7 @@ const FavoriteMovies: React.FC = () => {
 		setSelectedMovie(null);
 	};
 
-	const handleRemoveMovie = (movieId: string | number) => {
+	const handleRemoveMovie = (movieId: number | number) => {
 		removeFavoriteMovie(movieId);
 	};
 

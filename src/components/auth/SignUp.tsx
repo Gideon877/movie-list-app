@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Box, Typography, TextField, Button, CircularProgress, Alert, ButtonGroup, Link } from '@mui/material';
+import { Container, Box, Typography, TextField, Button, CircularProgress, ButtonGroup, Link } from '@mui/material';
 import { ExitToApp } from '@mui/icons-material';
 import { useSignUpStore } from '../../store/useAppStore';
 import { signupApi } from '../../api/authApi';

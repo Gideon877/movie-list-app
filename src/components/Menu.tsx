@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { useAppStore } from '../store/useAppStore'
 import { useAuthStore } from '../store/useAuthStore';
-import { Badge, Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { Badge, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import { Home } from '@mui/icons-material';
 import { useAppMovieStore } from '../store/useAppMovieStore';
 

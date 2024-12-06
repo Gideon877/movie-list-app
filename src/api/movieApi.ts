@@ -86,7 +86,8 @@ export const searchMovies = async (query: string, setMovies: (movies: Movie[]) =
         setError('');
     } catch (err) {
         const error = err as AxiosError;
-        setError(error.response?.data?.status_message || 'Error fetching movies. Please try again.');
+        console.log(error)
+        setError('Error fetching movies. Please try again.');
         setMovies([]);
     } finally {
         setLoading(false);

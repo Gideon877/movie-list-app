@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
 import axios from 'axios';
 import MovieCard from './search/MovieCard';
+import { Movie } from '../../utils/interfaces';
 
-interface Movie {
-    id: number;
-    title: string;
-    poster_path: string;
-}
 const TMDB_API_KEY = import.meta.env.VITE_REACT_APP_TMDB_API_KEY;
 
 const NowPlayingMovies: React.FC = () => {
@@ -44,7 +40,6 @@ const NowPlayingMovies: React.FC = () => {
     if (error) {
         return <Typography variant="h6" color="error">{error}</Typography>;
     }
-
     return (
         <Container>
             <Typography variant="h4" gutterBottom>
@@ -53,7 +48,7 @@ const NowPlayingMovies: React.FC = () => {
             <Grid container spacing={4}>
                 {movies.map((movie) => (
                     <Grid item xs={12} sm={6} md={3} key={movie.id}>
-                        <MovieCard movie={movie} />
+                        <MovieCard onInfoClick={()=> null} movie={movie} />
                     </Grid>
                 ))}
             </Grid>

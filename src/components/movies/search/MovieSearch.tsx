@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import axios, { AxiosError } from 'axios';
-import { TextField, Card, CardContent, CardMedia, Grid, Typography, CircularProgress, Container, Divider, Toolbar } from '@mui/material';
+import { TextField, Grid, Typography, CircularProgress, Container, Toolbar } from '@mui/material';
 import { create } from 'zustand';
 import { MovieSearchContentState, Movie } from '../../../utils/interfaces';
 import MovieCard from './MovieCard';
@@ -78,7 +78,8 @@ const MovieSearch: React.FC = () => {
             setError('');
         } catch (err) {
             const error = err as AxiosError;
-            setError(error.response?.data?.status_message || 'Error fetching movies. Please try again.');
+            console.log(error);
+            setError( 'Error fetching movies. Please try again.');
             setMovies([]);
         } finally {
             setLoading(false);

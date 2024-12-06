@@ -50,7 +50,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onInfoClick }) => {
                         No overview available
                     </Typography>
                 )}
-                <Rating name="read-only" value={movie?.vote_average / 10 * 5} readOnly />
+                {movie?.vote_average && <Rating name="read-only" value={movie?.vote_average / 10 * 5} readOnly />}
 
                 <br />
                 <Box display="flex" justifyContent="center" alignItems="center">

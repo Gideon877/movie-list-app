@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Alert, Box, Button, ButtonGroup, Card, CardContent, CardMedia, Rating, Snackbar, Typography } from '@mui/material';
+import { Alert, AlertColor, Box, Button, ButtonGroup, Card, CardContent, CardMedia, Rating, Snackbar, Typography } from '@mui/material';
 import { Movie } from '../../../utils/interfaces';
 import { InfoOutlined, FavoriteOutlined } from '@mui/icons-material';
 import { useAuthStore } from '../../../store/useAuthStore';
@@ -17,20 +17,20 @@ interface MovieCardProps {
 interface MovieCardStore {
     snackbarOpen: boolean;
     snackbarMessage: string;
-    snackbarSeverity: string;
+    snackbarSeverity: AlertColor;
     setSnackbarOpen: (snackbarOpen: boolean) => void;
     setSnackbarMessage: (snackbarMessage: string) => void;
-    setSnackbarSeverity: (snackbarSeverity: string) => void;
+    setSnackbarSeverity: (snackbarSeverity: AlertColor) => void;
 
 }
 
 const useFavoriteCardStore = create<MovieCardStore>((set) => ({
     snackbarOpen: false,
     snackbarMessage: '',
-    snackbarSeverity: '',
+    snackbarSeverity: 'info',
     setSnackbarOpen: (snackbarOpen: boolean) => set({ snackbarOpen }),
     setSnackbarMessage: (snackbarMessage: string) => set({ snackbarMessage }),
-    setSnackbarSeverity: (snackbarSeverity: string) => set({ snackbarSeverity })
+    setSnackbarSeverity: (snackbarSeverity: AlertColor) => set({ snackbarSeverity })
 }))
 
 const FavoriteMoviesCard: React.FC<MovieCardProps> = ({ movie, onInfoClick, onRemoveClick }) => {
@@ -72,7 +72,7 @@ const FavoriteMoviesCard: React.FC<MovieCardProps> = ({ movie, onInfoClick, onRe
                     <Typography variant="h6" gutterBottom>
                         {movie.title.length > 17 ? movie.title.substring(0, 17) + '...' : movie.title}
                     </Typography>
-                    <Rating name="read-only" value={movie?.vote_average / 10 * 5} readOnly />
+                    {movie.vote_average && <Rating name="read-only" value={movie.vote_average / 10 * 5} readOnly />}
 
                     <br />
                     <Box display="flex" justifyContent="center" alignItems="center">

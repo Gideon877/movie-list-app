@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Typography, Box, Button } from '@mui/material';
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
 	return (
 		<Box
 			sx={{
