@@ -51,18 +51,18 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onInfoClick }) => {
                     <ButtonGroup
                         sx={{
                             display: 'flex',
-                            justifyContent: 'center',
+                            justifyContent:  `${onInfoClick !== undefined ? 'center' :''}`,
                             width: '100%',
                         }}
                     >
-                        <Button
+                        {onInfoClick && <Button
                             onClick={onInfoClick}
                             startIcon={<InfoOutlined color="primary" />}
                             variant="outlined"
                             sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
                         >
                             <Typography variant="body2">Info</Typography>
-                        </Button>
+                        </Button>}
                        <Button
                            disabled={loading}
                            onClick={async () => {
