@@ -46,6 +46,8 @@ const SignUp: React.FC = () => {
                 })
                     .then(() => {
                         showSnackbar('Sign-up successful!', 'success');
+                        setFirstName('');
+                        setPassword(''); setUsername(''); setLastName('');
                     }).catch((error) => {
                         console.log(error);
                         showSnackbar('An error occurred while signing up. Please try again.', 'error');

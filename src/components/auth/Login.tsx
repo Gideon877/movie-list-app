@@ -28,6 +28,8 @@ const Login: React.FC = () => {
                 const {userId, token} = response;
                 login(userId, token);
                 setActiveView('Home');
+                setPassword('');
+                setUsername('');
             })
             .catch((error) => { 
                 console.log(error)
