@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import axios from 'axios';
+import MovieCard from './search/MovieCard';
 
 interface Movie {
     id: number;
@@ -52,25 +53,7 @@ const NowPlayingMovies: React.FC = () => {
             <Grid container spacing={4}>
                 {movies.map((movie) => (
                     <Grid item xs={12} sm={6} md={3} key={movie.id}>
-                        <Card>
-                            {movie.poster_path ? (
-                                <CardMedia
-                                    component="img"
-                                    height="350"
-                                    image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                    alt={movie.title}
-                                />
-                            ) : (
-                                <div style={{ height: 350, backgroundColor: '#f0f0f0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Typography variant="h6">No Image Available</Typography>
-                                </div>
-                            )}
-                            <CardContent>
-                                <Typography variant="h6" gutterBottom>
-                                    {movie.title.length > 17 ? movie.title.substring(0, 17) + '...' : movie.title}
-                                </Typography>
-                            </CardContent>
-                        </Card>
+                        <MovieCard movie={movie} />
                     </Grid>
                 ))}
             </Grid>
