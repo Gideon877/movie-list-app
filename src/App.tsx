@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useEffect } from 'react';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -9,12 +9,18 @@ import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
 import NotFound from './components/NotFound';
 import { useAuthStore } from './store/useAuthStore';
-import Home from './components/Home';
+import Profile from './components/Profile';
 
-const App = () => {
-	const { userId, authenticated } = useAuthStore();
 
-	console.log({userId, authenticated});
+const App: React.FC = () => {
+	const { authenticated, verifyToken, logout } = useAuthStore();
+
+    useEffect(() => {
+        if (!verifyToken()) {
+            logout();
+            alert('Session expired. Please log in again.');
+        }
+    }, [logout, verifyToken]);
 
 	return (
 		<Router>
@@ -22,7 +28,7 @@ const App = () => {
 				<Route path="/login" element={!authenticated ? <Login /> : <Navigate to="/" />} />
 				<Route path="/signup" element={!authenticated ? <SignUp /> : <Navigate to="/" />} />
 				<Route path="/" element={authenticated ? <Dashboard /> : <Navigate to="/login" />} />
-				{/* <Route path="/profile" element={authenticated ? <Profile /> : <Navigate to="/login" />} /> */}
+				<Route path="/profile" element={authenticated ? <Profile /> : <Navigate to="/login" />} />
 				<Route path="*" element={<NotFound />} />
 
 			</Routes>

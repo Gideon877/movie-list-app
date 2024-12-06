@@ -8,7 +8,7 @@ interface Movie {
     title: string;
     poster_path: string;
 }
-const TMDB_API_KEY = '222bc6eba66225a1c544d599b76e0ac9';
+const TMDB_API_KEY = import.meta.env.VITE_REACT_APP_TMDB_API_KEY;
 
 const NowPlayingMovies: React.FC = () => {
     const [movies, setMovies] = useState<Movie[]>([]);

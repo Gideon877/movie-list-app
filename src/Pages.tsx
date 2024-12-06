@@ -6,15 +6,8 @@ import FavoriteMovies from "./components/movies/favorite/FavoriteMovies";
 import MovieSearch from "./components/movies/search/MovieSearch";
 
 
-interface PagesProps { 
-    drawerWidth: number 
-}
-
-const Pages: React.FC <PagesProps> = ({drawerWidth }) => {
-
+const Pages: React.FC = () => {
     const { activeView } = useAppStore()
-
-    console.log({drawerWidth});
 
     return (
         <Box component='main'>

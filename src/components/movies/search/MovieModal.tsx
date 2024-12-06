@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography, Box, Rating } from '@mui/material';
 import { Movie } from '../../../utils/interfaces';
+import moment from 'moment';
 
 interface MovieModalProps {
     open: boolean;
@@ -25,6 +26,9 @@ const MovieModal: React.FC<MovieModalProps> = ({ open, movie, onClose }) => {
                     />
                     <Box>
                         <Typography variant="h6">{movie.title}</Typography>
+                        {movie.createdAt && (
+                            <Typography sx={{ fontWeight: 'bold' }} variant="body2">Added: {moment(movie.createdAt).fromNow()}</Typography>
+                        )}
                         <Typography variant="body1" color="textSecondary" style={{ margin: '10px 0' }}>
                             {movie.overview || 'No overview available'}
                         </Typography>
@@ -37,7 +41,7 @@ const MovieModal: React.FC<MovieModalProps> = ({ open, movie, onClose }) => {
                                 <Rating name="read-only" value={movie.vote_average / 10 * 5} readOnly />
                             </>
                         )}
-                        </Box>
+                    </Box>
                 </Box>
             </DialogContent>
             <DialogActions>

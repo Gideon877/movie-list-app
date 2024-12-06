@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react'
 import { useAppStore } from '../store/useAppStore'
 import { useAuthStore } from '../store/useAuthStore';
-import { Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { Badge, Box, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import { Home } from '@mui/icons-material';
+import { useAppMovieStore } from '../store/useAppMovieStore';
 
 
 
@@ -19,6 +20,7 @@ const Menu: React.FC<MenuProps> = ({ data }) => {
 
     const { setActiveView } = useAppStore();
     const { logout } = useAuthStore();
+    const { favoriteMovies } = useAppMovieStore();
 
     const onChangeMenu = (title: string | null) => {
         if (title === 'Logout') {
@@ -31,7 +33,7 @@ const Menu: React.FC<MenuProps> = ({ data }) => {
         <Fragment>
             <Typography variant="h6" sx={{ my: 2 }}>
                 <ListItemIcon onClick={() => onChangeMenu('Home')}>
-                    <Home />
+                    <Home fontSize='large'/>
                 </ListItemIcon>
             </Typography>
             <Divider />
@@ -40,7 +42,18 @@ const Menu: React.FC<MenuProps> = ({ data }) => {
                     <ListItem key={index} disablePadding>
                         <ListItemButton onClick={() => onChangeMenu(menu.title)}>
                             <ListItemIcon>
-                                {menu.icon}
+                                {menu.title === 'Favorites' ? (
+                                    <Badge
+                                        badgeContent={favoriteMovies.length}
+                                        overlap="circular"
+                                        showZero
+                                        color="error"
+                                    >
+                                        {menu.icon}
+                                    </Badge>
+                                ) : (
+                                    menu.icon
+                                )}
                             </ListItemIcon>
                             <ListItemText primary={menu.title} />
                         </ListItemButton>

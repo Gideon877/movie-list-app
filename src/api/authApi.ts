@@ -1,7 +1,7 @@
 import axios from "axios";
 import { User } from "../utils/interfaces";
 
-const BASE_URL = 'http://localhost:4005/auth';
+const BASE_URL = `${import.meta.env.VITE_REACT_APP_API_URL}/auth`;
 
 interface LoginUser {
     username: string | null;

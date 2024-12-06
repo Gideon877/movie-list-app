@@ -1,26 +1,10 @@
 import React from 'react';
 import { Container, Box, Typography, TextField, Button, CircularProgress, Alert, ButtonGroup, Link } from '@mui/material';
-import { SignUpAuthState } from "../../utils/interfaces";
-import { create } from 'zustand';
 import { ExitToApp } from '@mui/icons-material';
+import { useSignUpStore } from '../../store/useAppStore';
+import { signupApi } from '../../api/authApi';
+import CustomSnackbar from '../CustomSnackbar';
 
-
-const useAuthStore = create<SignUpAuthState>((set) => ({
-    isAuthenticated: false,
-    firstName: null,
-    lastName: null,
-    username: null,
-    password: null,
-    loading: false,
-    error: null,
-    setAuthenticated: (status: boolean) => set({ isAuthenticated: status }),
-    setFirstName: (firstName: string | null) => set({ firstName }),
-    setLastName: (lastName: string | null) => set({ lastName }),
-    setUsername: (username: string | null) => set({ username }),
-    setPassword: (password: string | null) => set({ password }),
-    setLoading: (loading: boolean) => set({ loading }),
-    setError: (error: string | null) => set({ error }),
-}));
 
 const SignUp: React.FC = () => {
     const {
@@ -30,32 +14,49 @@ const SignUp: React.FC = () => {
         setPassword,
         setLoading,
         setError,
-        isAuthenticated,
+        setType,
+        setOpen,
+        open, 
+        type, 
         loading,
         error,
         firstName,
         lastName,
         username,
         password
-    } = useAuthStore();
+    } = useSignUpStore();
+    const showSnackbar = (message: string, type: 'success' | 'error' | 'info') => {
+        console.log('showSnackbar called with message:', message, 'and type:', type);
+
+        setError(message);
+        setType(type);
+        setOpen(true);
+    };
 
     const handleSignUp = async () => {
         setLoading(true);
         setError(null);
-
-        // Simulate an API call for sign-up (replace with actual API call logic)
-        setTimeout(() => {
+        setTimeout(async () => {
             if (username && password && firstName && lastName) {
-                setFirstName(firstName);
-                setLastName(lastName);
-                setUsername(username);
-                setPassword(password);
-                setLoading(false);
-                setError(null);
+                await signupApi({
+                    firstName,
+                    lastName,
+                    username,
+                    password
+                })
+                    .then(() => {
+                        showSnackbar('Sign-up successful!', 'success');
+                    }).catch((error) => {
+                        console.log(error);
+                        showSnackbar('An error occurred while signing up. Please try again.', 'error');
+                    }).finally(() => {
+                        setLoading(false);
+                    })
+
                 alert('Sign-up successful!');
             } else {
                 setLoading(false);
-                setError('All fields are required.');
+                showSnackbar('All fields are required.', 'error');
             }
         }, 1000);
     };
@@ -73,13 +74,6 @@ const SignUp: React.FC = () => {
                 <Typography variant="h4" align="center" gutterBottom>
                     Sign Up
                 </Typography>
-
-                {error && (
-                    <Alert severity="error" sx={{ marginBottom: 2 }}>
-                        {error}
-                    </Alert>
-                )}
-
                 <TextField
                     label="First Name"
                     variant="outlined"
@@ -141,6 +135,8 @@ const SignUp: React.FC = () => {
                     Already have an account? Log In
                 </Link>
             </Box>
+            <CustomSnackbar open={open} message={error} type={type as "info" | "error" | "success"} onClose={() => setOpen(false)} />
+
         </Container>
     );
 };

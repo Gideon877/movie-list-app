@@ -5,6 +5,7 @@ import { InfoOutlined, FavoriteOutlined } from '@mui/icons-material';
 import { useAuthStore } from '../../../store/useAuthStore';
 import { removeFavoriteMovie } from '../../../api/movieApi';
 import { create } from 'zustand';
+import { useAppMovieStore } from '../../../store/useAppMovieStore';
 
 
 interface MovieCardProps {
@@ -42,6 +43,7 @@ const FavoriteMoviesCard: React.FC<MovieCardProps> = ({ movie, onInfoClick, onRe
         setSnackbarSeverity,
         setSnackbarOpen
     } = useFavoriteCardStore()
+    const { fetchFavoriteMovies} = useAppMovieStore()
 
     const handleSnackbarClose = () => {
         setSnackbarOpen(false);
@@ -97,6 +99,7 @@ const FavoriteMoviesCard: React.FC<MovieCardProps> = ({ movie, onInfoClick, onRe
                                     try {
                                         if (userId) {
                                             await removeFavoriteMovie(movie.id, userId);
+                                            await fetchFavoriteMovies(userId)
                                             onRemoveClick(movie.id)
                                             setLoading(false);
                                             setSnackbarMessage(`${title} has been removed successfully!`);

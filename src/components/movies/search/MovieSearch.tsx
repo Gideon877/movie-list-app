@@ -7,6 +7,10 @@ import MovieCard from './MovieCard';
 import MovieModal from './MovieModal';
 import NowPlayingMovies from '../NowPlayingMovies';
 
+const TMDB_API_KEY = import.meta.env.VITE_REACT_APP_TMDB_API_KEY;
+const TMDB_BASE_URL = import.meta.env.VITE_REACT_APP_TMDB_BASE_URL;
+
+
 const useStore = create<MovieSearchContentState>((set) => {
     const setMovies = (movies: Movie[]) => set({ movies });
     const setLoading = (loading: boolean) => set({ loading });
@@ -47,9 +51,6 @@ const MovieSearch: React.FC = () => {
         setModalOpen,
         setSelectedMovie
     } = useStore()
-
-    const TMDB_API_KEY = '222bc6eba66225a1c544d599b76e0ac9';
-    const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
     const handleSearchChange = async (event: ChangeEvent<HTMLInputElement>) => {
         const query = event.target.value;
@@ -93,8 +94,6 @@ const MovieSearch: React.FC = () => {
         setModalOpen(false);
         setSelectedMovie(null);
     };
-
-    console.log(movies[0])
 
     return (
         <div style={{ padding: '20px' }}>

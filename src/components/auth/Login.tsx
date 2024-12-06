@@ -1,19 +1,10 @@
 import React from 'react';
-import { Container, Box, Grid, Typography, TextField, Button, CircularProgress, Alert, ButtonGroup, Grid2, Link } from '@mui/material';
+import { Container, Box, Typography, TextField, Button, CircularProgress, Alert, ButtonGroup, Grid2, Link } from '@mui/material';
 import { LoginOutlined } from '@mui/icons-material';
 import { useAuthStore } from '../../store/useAuthStore';
-import { LoginStateProps } from '../../utils/interfaces';
-import { create } from 'zustand';
 import { loginApi } from '../../api/authApi';
-import { useAppStore } from '../../store/useAppStore';
+import { useAppStore, useLoginStore } from '../../store/useAppStore';
 
-
-const useLoginStore = create<LoginStateProps>((set) => ({
-    username: null,
-    password: null,
-    setPassword: (password: string | null) => set({ password }),
-    setUsername: (username: string | null) => set({ username }),
-}));
 
 const Login: React.FC = () => {
     const {
@@ -28,20 +19,15 @@ const Login: React.FC = () => {
 
     const { username, password, setPassword, setUsername } = useLoginStore();
 
-    const handleLogin = async () => {
+    const handleLogin =  () => {
         setLoading(true);
         setError(null);
-
-        // Simulate an API call for login (replace with actual API call logic)
-        setTimeout(() => {
-            loginApi({username, password})
+        setTimeout(async () => {
+            await loginApi({username, password})
             .then((response) => { 
-                console.log(response)
                 const {userId, token} = response;
                 login(userId, token);
                 setActiveView('Home');
-                // setUsername(username);
-                // setLoading(false);
             })
             .catch((error) => { 
                 console.log(error)

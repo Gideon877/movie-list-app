@@ -2,10 +2,10 @@ import axios, { AxiosError } from 'axios';
 import { Movie } from '../utils/interfaces';
 import { useAuthStore } from '../store/useAuthStore';
 
-const TMDB_API_KEY = '222bc6eba66225a1c544d599b76e0ac9';
-const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+const TMDB_API_KEY = import.meta.env.VITE_REACT_APP_TMDB_API_KEY;
+const TMDB_BASE_URL = import.meta.env.VITE_REACT_APP_TMDB_BASE_URL;
 
-const BASE_URL = 'http://localhost:4005/movies';
+const BASE_URL = `${import.meta.env.VITE_REACT_APP_API_URL}/movies`;
 
 const api = axios.create({
     baseURL: BASE_URL,

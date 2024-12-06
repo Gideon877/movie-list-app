@@ -1,10 +1,11 @@
-import * as React from 'react';
-import { AppBar, Box, CssBaseline, Divider, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
+import { AppBar, Badge, Box, CssBaseline, Divider, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
 import { Subscriptions, Menu as MenuIcon, Home as HomeIcon, Person, ExitToApp as ExitToAppIcon } from '@mui/icons-material';
 import { useAuthStore } from '../store/useAuthStore';
 import Pages from '../Pages';
 import Menu from './Menu';
 import { useAppStore } from '../store/useAppStore';
+import { useAppMovieStore } from '../store/useAppMovieStore';
 
 interface Props {
     window?: () => Window;
@@ -20,17 +21,17 @@ const drawerWidth = 240;
 const navItems: NavItem[] = [
     {
         title: 'Favorites',
-        icon: <Subscriptions fontSize='large' color='secondary' />,
+        icon: <Subscriptions fontSize='large' />,
         href: '/favorites',
     },
     {
         title: 'Profile',
-        icon: <Person fontSize='large' color='inherit' />,
+        icon: <Person fontSize='large' />,
         href: '/',
     },
     {
         title: 'Logout',
-        icon: <ExitToAppIcon fontSize='large' color='error' />,
+        icon: <ExitToAppIcon fontSize='large' />,
         href: '/logout',
     },
 ];
@@ -38,9 +39,15 @@ const navItems: NavItem[] = [
 export default function Dashboard(props: Props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const { logout, userId } = useAuthStore();
+    const { setActiveView } = useAppStore();
+    const { favoriteMovies, fetchFavoriteMovies } = useAppMovieStore()
 
-    const logout = useAuthStore((state) => state.logout);
-    const setActiveView = useAppStore((state) => state.setActiveView);
+    useEffect(() => {
+        if (userId) {
+            fetchFavoriteMovies(userId);
+        }
+    }, [userId, fetchFavoriteMovies]);
 
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
@@ -83,15 +90,27 @@ export default function Dashboard(props: Props) {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-                        <IconButton onClick={() => onChangeMenu('Home')}>
-                            <HomeIcon fontSize='large' />
+                        <IconButton onClick={() => onChangeMenu('Home')} color='inherit' >
+                            <HomeIcon fontSize='large'  />
                         </IconButton>
                     </Typography>
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item, index) => (
-                            <IconButton key={index} onClick={() => onChangeMenu(item.title)}>
-                                {item.icon}
+                            <IconButton color="inherit" key={index} onClick={() => onChangeMenu(item.title)}>
+                                {item.title === 'Favorites' ? (
+                                    <Badge
+                                        badgeContent={favoriteMovies.length}
+                                        overlap="circular"
+                                        showZero
+                                        color="error"
+                                    >
+                                        {item.icon}
+                                    </Badge>
+                                ) : (
+                                    item.icon
+                                )}
                             </IconButton>
+
                         ))}
                     </Box>
                 </Toolbar>
@@ -114,7 +133,7 @@ export default function Dashboard(props: Props) {
                 </Drawer>
             </nav>
             <>
-                <Pages drawerWidth={drawerWidth} />
+                <Pages />
             </>
         </Box>
     );
