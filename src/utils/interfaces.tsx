@@ -43,31 +43,33 @@ export interface MovieStore {
 
 export interface AuthState {
     isAuthenticated: boolean;
-    username: string | null;
-    password: string | null;
+    username: string;
+    password: string;
     loading: boolean;
     error: string | null;
-    setPassword: (password: string | null) => void;
+    setPassword: (password: string) => void;
     setLoading: (loading: boolean) => void;
     setError: (error: string | null) => void;
     setAuthenticated: (status: boolean) => void;
-    setUsername: (username: string | null) => void;
+    setUsername: (username: string) => void;
 
 }
 
 export interface SignUpAuthState {
-    isAuthenticated: boolean;
-    firstName: string | null;
-    lastName: string | null;
-    username: string | null;
-    password: string | null;
+    firstName: string;
+    lastName: string;
+    username: string;
+    password: string;
     loading: boolean;
     error: string | null;
-    setAuthenticated: (status: boolean) => void;
-    setFirstName: (firstName: string | null) => void;
-    setLastName: (lastName: string | null) => void;
-    setUsername: (username: string | null) => void;
-    setPassword: (password: string | null) => void;
+    type: string;
+    open: boolean;
+    setType: (type: 'success' | 'error' | 'info') => void;
+    setOpen: (open: boolean) => void;
+    setFirstName: (firstName: string) => void;
+    setLastName: (lastName: string) => void;
+    setUsername: (username: string) => void;
+    setPassword: (password: string) => void;
     setLoading: (loading: boolean) => void;
     setError: (error: string | null) => void;
 }
