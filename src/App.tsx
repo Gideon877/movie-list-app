@@ -10,6 +10,7 @@ import SignUp from './components/auth/SignUp';
 import NotFound from './components/NotFound';
 import { useAuthStore } from './store/useAuthStore';
 import Profile from './components/Profile';
+import Auth from './components/auth/Auth';
 
 
 const App: React.FC = () => {
@@ -25,8 +26,9 @@ const App: React.FC = () => {
 	return (
 		<Router>
 			<Routes>
-				<Route path="/login" element={!authenticated ? <Login /> : <Navigate to="/" />} />
-				<Route path="/signup" element={!authenticated ? <SignUp /> : <Navigate to="/" />} />
+				<Route path="/" element={!authenticated ? <Auth /> : <Navigate to="/" />} />
+				{/* <Route path="/login" element={!authenticated ? <Login /> : <Navigate to="/" />} />
+				<Route path="/signup" element={!authenticated ? <SignUp /> : <Navigate to="/" />} /> */}
 				<Route path="/" element={authenticated ? <Dashboard /> : <Navigate to="/login" />} />
 				<Route path="/profile" element={authenticated ? <Profile /> : <Navigate to="/login" />} />
 				<Route path="*" element={<NotFound />} />
