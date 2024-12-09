@@ -6,7 +6,7 @@ import { loginApi } from '../../api/authApi';
 import { useAppStore, useLoginStore } from '../../store/useAppStore';
 
 
-const Login: React.FC <{ setView: (view: string) => void}> = ({setView}) => {
+const Login: React.FC = () => {
     const {
         error,
         loading,
@@ -103,7 +103,7 @@ const Login: React.FC <{ setView: (view: string) => void}> = ({setView}) => {
                 <br />
                 <Grid2 container>
                     <Link variant="body2">
-                        Don't have an account? <Button onClick={()=> setView('SignUp')}>Sign Up</Button>
+                        Don't have an account? Sign Up
                     </Link>
                 </Grid2>
             </Box>

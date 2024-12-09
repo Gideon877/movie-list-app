@@ -26,24 +26,24 @@ const NotFound: React.FC = () => {
 			<Box>
 				<Button
 					component={Link}
-					href="/"
+					href="/login"
 					variant="contained"
 					color="primary"
 					sx={{ marginRight: 2 }}
 				>
 					Sign In
 				</Button>
-				{/* <Typography variant="body1" display="inline" sx={{ marginRight: 2 }}>
+				<Typography variant="body1" display="inline" sx={{ marginRight: 2 }}>
 					or
 				</Typography>
 				<Button
 					component={Link}
-					href="/"
+					href="/signup"
 					variant="outlined"
 					color="primary"
 				>
 					Sign Up
-				</Button> */}
+				</Button>
 			</Box>
 		</Box>
 	);

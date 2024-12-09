@@ -7,7 +7,7 @@ import CustomSnackbar from '../CustomSnackbar';
 import { useNavigate } from 'react-router-dom';
 
 
-const SignUp: React.FC<{ setView: (view: string) => void}> = ({setView}) => {
+const SignUp: React.FC = () => {
     const {
         setFirstName,
         setLastName,
@@ -150,8 +150,8 @@ const SignUp: React.FC<{ setView: (view: string) => void}> = ({setView}) => {
                 </Box>
 
                 <br />
-                <Link variant="body2">
-                    Already have an account? <Button onClick={()=> setView('Login')}>Log In</Button>
+                <Link href="/login" variant="body2">
+                    Already have an account? Log In
                 </Link>
             </Box>
             <CustomSnackbar open={open} message={error} type={type as "info" | "error" | "success"} onClose={() => setOpen(false)} />
