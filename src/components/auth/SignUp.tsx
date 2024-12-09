@@ -4,7 +4,7 @@ import { ExitToApp } from '@mui/icons-material';
 import { useSignUpStore } from '../../store/useAppStore';
 import { signupApi } from '../../api/authApi';
 import CustomSnackbar from '../CustomSnackbar';
-import { useAuthStore } from '../../store/useAuthStore';
+import { useNavigate } from 'react-router-dom';
 
 
 const SignUp: React.FC = () => {
@@ -26,7 +26,8 @@ const SignUp: React.FC = () => {
         username,
         password
     } = useSignUpStore();
-    const { logout } = useAuthStore();
+    const navigate = useNavigate();
+
     const showSnackbar = (message: string, type: 'success' | 'error' | 'info') => {
         console.log('showSnackbar called with message:', message, 'and type:', type);
 
@@ -46,16 +47,24 @@ const SignUp: React.FC = () => {
                     username,
                     password
                 })
-                    .then(() => {
-                        showSnackbar('Sign-up successful!', 'success');
-                        setFirstName('');
-                        setPassword(''); setUsername(''); setLastName('');
-                        logout();
+                    .then((isRegistered) => {
+                        if (isRegistered) {
+                            showSnackbar('Sign-up successful!', 'success');
+                            setFirstName('');
+                            setPassword(''); setUsername(''); setLastName('');
+                            setTimeout(() => {
+                                navigate('/login');
+                                setLoading(false);
+                            },3000)
+
+                        } else {
+                            throw new Error('Sign-up failed from API server')
+                        }
+
 
                     }).catch((error) => {
                         console.log(error);
-                        showSnackbar('An error occurred while signing up. Please try again.', 'error');
-                    }).finally(() => {
+                        showSnackbar('An error occurred while signing up. Please try again with different username.', 'error');
                         setLoading(false);
                     })
 
@@ -81,6 +90,7 @@ const SignUp: React.FC = () => {
                     Sign Up
                 </Typography>
                 <TextField
+                    disabled={loading}
                     label="First Name"
                     variant="outlined"
                     fullWidth
@@ -89,6 +99,7 @@ const SignUp: React.FC = () => {
                     margin="normal"
                 />
                 <TextField
+                    disabled={loading}
                     label="Last Name"
                     variant="outlined"
                     fullWidth
@@ -97,6 +108,7 @@ const SignUp: React.FC = () => {
                     margin="normal"
                 />
                 <TextField
+                    disabled={loading}
                     label="Username"
                     variant="outlined"
                     fullWidth
@@ -105,6 +117,7 @@ const SignUp: React.FC = () => {
                     margin="normal"
                 />
                 <TextField
+                    disabled={loading}
                     label="Password"
                     type="password"
                     variant="outlined"
