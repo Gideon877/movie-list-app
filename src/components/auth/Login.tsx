@@ -102,8 +102,8 @@ const Login: React.FC = () => {
 
                 <br />
                 <Grid2 container>
-                    <Link variant="body2">
-                        Don't have an account? Sign Up
+                    <Link href="/signup" variant="body2">
+                        {"Don't have an account? Sign Up"}
                     </Link>
                 </Grid2>
             </Box>
